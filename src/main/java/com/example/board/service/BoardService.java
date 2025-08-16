@@ -37,29 +37,41 @@ public class BoardService {
 
     //updateViewCnt가 true면 글 조회수 증가, false면 증가 안함.
     @Transactional
-    public Board getboard(int boardId, boolean updateViewCnt){
+    public Board getboard(int boardId, boolean updateViewCnt) {
         Board board = boardDao.getBoard(boardId);
-        if(updateViewCnt){
+        if (updateViewCnt) {
             boardDao.updateViewCnt(boardId);
         }
         return board;
     }
 
     @Transactional
-    public void deleteBoard(int userId, int boardId){
+    public void deleteBoard(int userId, int boardId) {
         Board board = boardDao.getBoard(boardId);
-        if (board.getUserId() == userId){
+        if (board.getUserId() == userId) {
             boardDao.deleteBoard(boardId);
         }
     }
 
     @Transactional
-    public void deleteBoard(int boardId){
+    public void deleteBoard(int boardId) {
         boardDao.deleteBoard(boardId);
     }
 
     @Transactional
     public void updateBoard(int boardId, String title, String content) {
         boardDao.updateBoard(boardId, title, content);
+    }
+
+
+    //json을 위한 코드
+    // 전체 게시물 가져오기
+    public List<Board> getBoardsAll() {
+        return boardDao.findAll();
+    }
+
+    // 특정 게시물 가져오기
+    public Board getBoardById(int bid) {
+        return boardDao.findById(bid);
     }
 }

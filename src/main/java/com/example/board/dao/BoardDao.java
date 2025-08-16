@@ -5,6 +5,7 @@ import com.example.board.dto.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -23,7 +24,7 @@ public class BoardDao {
     private final SimpleJdbcInsertOperations insertBoard;
 
     //생성자 주입, 스프링이 자동으로 HikeriCP Bean을 주입함.
-    public BoardDao(DataSource dataSource){
+    public BoardDao(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         insertBoard = new SimpleJdbcInsert(dataSource)
                 .withTableName("board")
@@ -83,8 +84,8 @@ public class BoardDao {
 
     @Transactional
     public void updateViewCnt(int boardId) {
-        String sql = "update board\n"+
-                "set view_cnt = view_cnt +1\n"+
+        String sql = "update board\n" +
+                "set view_cnt = view_cnt +1\n" +
                 "where board_id = :boardId";
         jdbcTemplate.update(sql, Map.of("boardId", boardId));
     }
@@ -98,7 +99,7 @@ public class BoardDao {
     @Transactional
     public void updateBoard(int boardId, String title, String content) {
         String sql = "update board\n" +
-                "set title = :title, content = :content\n"+
+                "set title = :title, content = :content\n" +
                 "where board_id = :boardId";
         Board board = new Board();
         board.setBoardId(boardId);
@@ -107,5 +108,16 @@ public class BoardDao {
         SqlParameterSource params = new BeanPropertySqlParameterSource(board);
         jdbcTemplate.update(sql, params);
 //        jdbcTemplate.update(sql, Map.of("boardId", boardId, "title", title, "content", content)); -> 한줄로 가능하지만 오타 가능성 있음.
+    }
+
+    public List<Board> findAll() {
+        String sql = "SELECT * FROM board";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Board.class));
+    }
+
+    public Board findById(int bid) {
+        String sql = "SELECT * FROM board WHERE board_id=:id";
+        MapSqlParameterSource param = new MapSqlParameterSource("id", bid);
+        return jdbcTemplate.queryForObject(sql, param, new BeanPropertyRowMapper<>(Board.class));
     }
 }
