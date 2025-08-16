@@ -14,11 +14,11 @@ COPY src src
 # 4. 권한 부여 (Gradle Wrapper 실행 가능하도록)
 RUN chmod +x ./gradlew
 
-# 5. 프로젝트 빌드
-RUN ./gradlew build -x test
+# 5. 프로젝트 빌드 (bootJar 포함, 테스트 제외)
+RUN ./gradlew bootJar -x test
 
-# 6. 실행 환경 설정
-EXPOSE 8081
+# 6. Render가 지정하는 포트 환경변수 사용
+EXPOSE ${PORT}
 
-# 7. 앱 실행
-CMD ["java", "-jar", "build/libs/board-0.0.1-SNAPSHOT.jar"]
+# 7. 앱 실행 (환경변수 PORT로 Spring Boot 포트 지정)
+CMD ["sh", "-c", "java -jar build/libs/board-0.0.1-SNAPSHOT.jar --server.port=$PORT"]
