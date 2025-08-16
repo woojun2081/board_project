@@ -22,7 +22,8 @@ RUN ./gradlew bootJar -x test
 # 7. 컨테이너 포트 설정
 EXPOSE 8081
 
-# 8. 앱 실행
+# 8. 앱 실행 (쉘 형식 CMD, $PORT 치환)
 CMD java -Dserver.port=$PORT -jar build/libs/board-0.0.1-SNAPSHOT.jar
+
 
 
