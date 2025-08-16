@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Copatible" content="IE=edge0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시믈 상세보기</title>
+</head>
+<body>
+<H1 th:text="${board.title}"></H1>
+<div>글쓴이: <span th:text="${board.nickname}"></span></div>
+<div>제목: <span th:text="${board.title}"></span></div>
+<div>조회수: <span th:text="${board.viewCnt}"></span></div>
+<div>작성일: <span th:text="${board.redate}"></span></div>
+<div>내용: <span th:text="${board.content}"></span></div>
+
+<div th:if="${board.image != null}">
+    <img th:src="@{'/images/' + ${board.image}}" alt="게시물 이미지" style="max-width:600px; max-height:400px;" />
+</div>
+<div><a href="/share">목록보기</a></div>
+<!-- 로그인한 사용자만 가능한 기능 -->
+<div><a th:href="@{/updateform(boardId=${board.boardId})}">수정하기</a></div>
+<div><a th:href="@{/delete(boardId=${board.boardId})}">삭제하기</a></div>
+</body>
+</html>

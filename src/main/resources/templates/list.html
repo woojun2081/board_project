@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Copatible" content="IE=edge0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 목록보기</title>
+    <link rel="stylesheet" href="board.css"/> <!-- 이미지 파일이나 스태틱 파일 저장 위치 -->
+</head>
+    <body>
+        <section class="board">
+            <div class="page-title">
+                <div class="container">
+                    <h3>게시판 목록보기</h3>
+                </div>
+            </div>
+
+            <div class="login-info">
+                <div class="container">
+
+                    <!-- ✅ 로그인된 경우 -->
+                    <div th:if="${loginInfo != null}">
+            <span class="login-info_user">
+                <span th:text="${loginInfo.nickname}"></span>
+            </span>
+                        <span class="login-info_logout">
+                <a href="/logout">로그아웃</a>
+            </span>
+                    </div>
+
+                    <!-- ❌ 로그인되지 않은 경우 -->
+                    <div th:if="${loginInfo == null}">
+            <span class="login-info_login">
+                <a href="/loginform">로그인</a>
+            </span>
+                        <span class="login-info_logout">
+                <a href="/userRegForm">회원가입</a>
+            </span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- board list area -->
+            <div id="board=list">
+                <div class="container">
+                    <table class="board-table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                            <th scope="col" class="th-viewcnt">조회수</th>
+                            <th scope="col" class="th-name">작성자</th>
+                            <th scope="col" class="th-date">등록일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="board : ${list}">
+                                <td th:text="${board.boardId}"></td>
+                                <th>
+                                    <a th:href="@{/board(boardId=${board.boardId})}" th:text="${board.title}"></a>
+                                </th>
+                                <td th:text="${board.viewCnt}">1</td>
+                                <td th:text="${board.nickname}">1</td>
+                                <td th:text="${board.redate}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/writeform" th:if="${loginInfo != null}">글쓰기</a>
+                <span th:if="${loginInfo == null}">글쓰기</span>
+            </div>
+            <div>
+                <span th:each="n :${#numbers.sequence(1,pageCount)}"><a th:href="@{/share(page=${n})}" th:text="${n}"></a> </span>
+            </div>
+        </section>
+    </body>
+</html>
