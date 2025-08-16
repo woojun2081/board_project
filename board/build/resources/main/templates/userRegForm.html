@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Copatible" content="IE=edge0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입폼</title>
+</head>
+<body>
+    <h1>회원가입폼</h1>
+    <!-- http://localhost:9090/userRegForm 로 전달됨. -->
+    <form action="/userReg" method="post">
+        아이디: <input type="text" name="id" /><br />
+        비밀번호: <input type="text" name="password" /><br />
+        비밀번호 확인: <input type="text" name="password_check" /><br />
+        닉네임: <input type="text" name="nickname" /><br />
+        이메일: <input type="text" name="email" /><br />
+        <input type="submit" value="회원가입" />
+    </form>
+</body>
+</html>

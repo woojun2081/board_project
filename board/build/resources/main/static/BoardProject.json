@@ -1,0 +1,11 @@
+{
+  "boardDao": "package com.example.board.dao;\n\nimport com.example.board.dto.Board;\nimport org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;\nimport org.springframework.stereotype.Repository;\n\n@Repository\npublic class BoardDao {\n    private final NamedParameterJdbcTemplate jdbcTemplate;\n    public BoardDao(NamedParameterJdbcTemplate jdbcTemplate) {\n        this.jdbcTemplate = jdbcTemplate;\n    }\n}",
+
+  "boardService": "package com.example.board.service;\n\nimport com.example.board.dao.BoardDao;\nimport com.example.board.dto.Board;\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\nimport java.util.List;\n\n@Service\npublic class BoardService {\n    private final BoardDao boardDao;\n    public BoardService(BoardDao boardDao) {\n        this.boardDao = boardDao;\n    }\n    @Transactional\n    public void addBoard(Board board) {\n        boardDao.addBoard(board);\n    }\n}",
+
+  "boardController": "package com.example.board.controller;\n\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.RestController;\n\n@RestController\npublic class BoardController {\n    @GetMapping(\"/board/test\")\n    public String test() {\n        return \"Board Controller working\";\n    }\n}",
+
+  "boardDto": "package com.example.board.dto;\n\nimport lombok.Getter;\nimport lombok.Setter;\nimport java.time.LocalDateTime;\n\n@Getter\n@Setter\npublic class Board {\n    private int boardId;\n    private String title;\n    private String content;\n    private String writer;\n    private LocalDateTime redate;\n    private int userId;\n    private int viewCnt;\n    private String image;\n    private String reviewText;\n    private String reviewImage;\n}",
+
+  "sql": "CREATE DATABASE IF NOT EXISTS board DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;\nUSE board;\nDROP TABLE IF EXISTS board;\nCREATE TABLE board (\n board_id INT AUTO_INCREMENT PRIMARY KEY,\n title VARCHAR(255) NOT NULL,\n content TEXT NOT NULL,\n writer VARCHAR(100) NOT NULL,\n redate DATETIME DEFAULT CURRENT_TIMESTAMP,\n user_id INT,\n view_cnt INT DEFAULT 0,\n image VARCHAR(255),\n review_text TEXT,\n review_image VARCHAR(255)\n);"
+}
