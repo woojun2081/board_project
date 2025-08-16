@@ -25,6 +25,11 @@ public class BoardController {
     //http://localhost:8081/share ------> "list"라는 이름의 템플릿을 사용하여 화면에  출력함.
 
     //list 리턴은 classpath:/templates/list.html 사용한다는 뜻.--> 프론트 부분
+    @GetMapping("/")
+    public String rootRedirect() {
+        return "redirect:/share";
+    }
+
     @GetMapping("/share")
     public String list(@RequestParam(name="page", defaultValue = "1")int page, HttpSession session, Model model){
         LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
