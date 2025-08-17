@@ -73,7 +73,7 @@ public class BoardDao {
     //읽어오기만 하면 readOnly = true
     @Transactional(readOnly = true)
     public Board getBoard(int boardId) {
-        String sql = "select b.user_id, b.board_id, b.title, b.redate, b.view_cnt, u.nickname, b.content, b.image" +
+        String sql = "select b.user_id, b.board_id, b.title, b.redate, b.view_cnt, u.nickname, b.content, b.image " +
                 "from board b, user u where b.user_id = u.user_id " +
                 "and b.board_id = :boardId";
 
