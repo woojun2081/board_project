@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: ${postgresql://board_db_3u0w_user:45jh5VrRC7yyEKJsGjHLslDNvhsPXll2@dpg-d2gtr3n5r7bs73ffoq9g-a/board_db_3u0w}?useSSL=false&serverTimezone=UTC
-    username: ${board_db_3u0w_user}
-    password: ${45jh5VrRC7yyEKJsGjHLslDNvhsPXll2}
+    url: jdbc:mysql://postgresql://board_db_3u0w_user:45jh5VrRC7yyEKJsGjHLslDNvhsPXll2@dpg-d2gtr3n5r7bs73ffoq9g-a/board_db_3u0w:5432/board_db?
+    username: board_db_3u0w_user
+    password: 45jh5VrRC7yyEKJsGjHLslDNvhsPXll2
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
