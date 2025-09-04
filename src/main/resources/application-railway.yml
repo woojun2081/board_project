@@ -1,0 +1,20 @@
+server:
+  port: 8081  # Render에서 할당된 포트 사용
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql.railway.internal:3306/railway?serverTimezone=Asia/Seoul&useSSL=false
+    username: root
+    password: zenSxLgWAsnmDTLWZLYPgJmsHPhRtODq
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+
+
+
+
+
+
+
+

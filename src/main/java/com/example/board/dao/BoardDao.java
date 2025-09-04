@@ -120,4 +120,14 @@ public class BoardDao {
         MapSqlParameterSource param = new MapSqlParameterSource("id", bid);
         return jdbcTemplate.queryForObject(sql, param, new BeanPropertyRowMapper<>(Board.class));
     }
+
+
+    //DB Railway에 넘겨주기 위한 코드
+    @Transactional(readOnly = true)
+    public Board findByIdSafe(int bid) {
+        String sql = "SELECT * FROM board WHERE board_id=:id";
+        List<Board> list = jdbcTemplate.query(sql, new MapSqlParameterSource("id", bid), new BeanPropertyRowMapper<>(Board.class));
+        return list.isEmpty() ? null : list.get(0);
+    }
+
 }
