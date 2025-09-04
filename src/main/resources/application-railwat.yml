@@ -1,11 +1,9 @@
 server:
-  port: ${PORT:8081}   # Render에서 제공하는 포트
+  port: 8081  # Railway가 제공하는 포트
 
 spring:
   datasource:
-    url: postgresql://board_db_3u0w_user:45jh5VrRC7yyEKJsGjHLslDNvhsPXll2@dpg-d2gtr3n5r7bs73ffoq9g-a/board_db_3u0w
-    username: board_db_3u0w_user
-    password: 45jh5VrRC7yyEKJsGjHLslDNvhsPXll2
+    url: mysql://root:xuvZjqCPJIAkzUdoRxcrrymgBWavhoWk@tramway.proxy.rlwy.net:37965/railway      # Railway 환경변수 참조
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
@@ -19,6 +17,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    root: INFO
+
+
+
+
 
 
 
