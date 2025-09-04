@@ -68,20 +68,6 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql,params,rowMapper);
     }
 
-    // ✅ 새 메소드: 안전하게 getUser
-    @Transactional(readOnly = true)
-    public User getUserSafe(String id) {
-        String sql = "select user_id, email, id, password, redate, nickname from user where id = :id";
-        SqlParameterSource params = new MapSqlParameterSource("id", id);
-        List<User> users = jdbcTemplate.query(sql, params, BeanPropertyRowMapper.newInstance(User.class));
-        return users.isEmpty() ? null : users.get(0);
-    }
-//DB Railway에 넘겨주기 위한 코드
-    @Transactional(readOnly = true)
-    public List<User> findAll() {
-        String sql = "SELECT * FROM user";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
-    }
 
 
     @Transactional(readOnly = true)
